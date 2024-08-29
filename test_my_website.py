@@ -14,17 +14,18 @@ def driver(): # обычно пишут не driver, а driver
     yield driver
     driver.close()
 
-def test_open_galaxy_s6(driver):
-    driver.get('https://demoblaze.com/index.html')
-    galaxy_s6 = driver.find_element(By.XPATH, value='//a[text()="Samsung galaxy s6"]') # ищем элемент и сохраняем в переменную
-    galaxy_s6.click()
-    title = driver.find_element(By.CSS_SELECTOR, value='h2')
-    assert title.text == 'Samsung galaxy s6'
+def test_check_ip_link(driver):
+    driver.get('https://yura.it-website.online')
+    check_ip_link = driver.find_element(By.LINK_TEXT, "Check IP")
+    check_ip_link.click()
+    time.sleep(2)
+    count = driver.find_elements(By.CSS_SELECTOR, value='h1')
+    assert len(count) == 3
 
-def test_two_monitors(driver):
-    driver.get('https://demoblaze.com/index.html')
-    monitor_link=driver.find_element(By.CSS_SELECTOR, value='''[onclick="byCat('monitor')"]''')
-    monitor_link.click()
-    time.sleep(3)
-    monitors = driver.find_elements(By.CSS_SELECTOR, value='.card')
-    assert len(monitors) == 2
+def test_check_hostname_link(driver):
+    driver.get('https://yura.it-website.online')
+    check_hostname_link = driver.find_element(By.LINK_TEXT, "Check Hostname")
+    check_hostname_link.click()
+    time.sleep(2)  # Подождем немного для загрузки страницы
+    count = driver.find_elements(By.CSS_SELECTOR, value='h1')
+    assert len(count) == 1
